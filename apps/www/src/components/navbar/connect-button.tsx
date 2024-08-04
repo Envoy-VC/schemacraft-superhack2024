@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { truncate } from '~/lib/utils';
+
 import { useWeb3Modal, useWeb3ModalState } from '@web3modal/wagmi/react';
 import { BigNumber } from 'bignumber.js';
 import {
@@ -32,10 +34,16 @@ export const ConnectButton = () => {
 
   // ENS
   const { data: ensName, status: ensNameStatus } = useEnsName({
+    chainId: 1,
     address,
+    query: {
+      enabled: Boolean(address),
+      initialData: truncate(address ?? '', 10),
+    },
   });
   const { data: ensAvatar, status: ensAvatarStatus } = useEnsAvatar({
     name: ensName ?? '',
+    chainId: 1,
     query: {
       enabled: ensName !== null,
       initialData: `https://api.dicebear.com/8.x/shapes/svg?seed=${address ?? ''}`,
@@ -116,7 +124,7 @@ export const ConnectButton = () => {
           <div className='flex flex-col items-start'>
             <div className='font-semibold'>
               {ensNameStatus === 'success' ? (
-                ensName ?? formattedAddress
+                (ensName ?? formattedAddress)
               ) : (
                 <Skeleton className='h-4 w-24' />
               )}
