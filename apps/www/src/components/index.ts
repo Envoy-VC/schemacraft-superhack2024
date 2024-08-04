@@ -1,3 +1,2 @@
-import { Navbar } from './navbar';
-
-export { Navbar };
+export * from './navbar';
+export * from './text-copy';
