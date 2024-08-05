@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']),
-    IRON_SESSION_PASSWORD: z.string().min(32),
+    IRON_SESSION_PASSWORD: z.string().length(32),
   },
   client: {
     NEXT_PUBLIC_WALLETCONNECT_ID: z.string().min(1),
