@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { ConnectButton } from './connect-button';
-import { WorldCoinConnect } from './worldcoin';
 
 export const Navbar = () => {
   return (
@@ -9,7 +8,6 @@ export const Navbar = () => {
       <div className='mx-auto flex h-full max-w-screen-xl items-center justify-between px-4'>
         <div className='text-xl font-semibold'>Web3 Starter</div>
         <ConnectButton />
-        <WorldCoinConnect />
       </div>
     </div>
   );

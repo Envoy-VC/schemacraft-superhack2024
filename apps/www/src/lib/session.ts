@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers';
 
 import type { ISuccessResult } from '@worldcoin/idkit';
@@ -22,7 +24,9 @@ export const login = async (data: ISuccessResult) => {
   session.nullifier_hash = data.nullifier_hash;
   session.proof = data.proof;
   session.verification_level = data.verification_level;
-  session.expires = new Date().toISOString();
+  session.expires = new Date(
+    Date.now() + 7 * 24 * 60 * 60 * 1000
+  ).toISOString();
   await session.save();
   return { success: true };
 };
