@@ -1,0 +1,18 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["packages/eas-uikit"],
+  "entryPointStrategy": "packages",
+  "name": "EAS UIKit Reference",
+  "out": "docs",
+  "readme": "./README.md",
+  "customCss": "assets/docs.css",
+  "plugin": ["typedoc-material-theme", "typedoc-plugin-extras"],
+  "themeColor": "#c3c8e4",
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true,
+    "includeFolders": false
+  },
+  "categorizeByGroup": true,
+  "hideGenerator": false
+}
