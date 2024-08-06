@@ -1,6 +1,8 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 import type { ISuccessResult } from '@worldcoin/idkit';
 import { type SessionOptions, getIronSession } from 'iron-session';
@@ -28,6 +30,7 @@ export const login = async (data: ISuccessResult) => {
     Date.now() + 7 * 24 * 60 * 60 * 1000
   ).toISOString();
   await session.save();
+  revalidatePath('/', 'page');
   return { success: true };
 };
 
