@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
   server: {
     NODE_ENV: z.enum(['development', 'test', 'production']),
-    IRON_SESSION_PASSWORD: z.string(),
+    IRON_SESSION_PASSWORD: z.string().length(32),
   },
   client: {
     NEXT_PUBLIC_WALLETCONNECT_ID: z.string().min(1),
@@ -15,7 +15,7 @@ export const env = createEnv({
     NEXT_PUBLIC_ATTEST_CHAIN_WSS: z.string().min(1),
     NEXT_PUBLIC_WORLDCOIN_CLIENT_ID: z.string().min(1),
   },
-  runtimeEnv: {
+  experimental__runtimeEnv: {
     NEXT_PUBLIC_WALLETCONNECT_ID: process.env.NEXT_PUBLIC_WALLETCONNECT_ID,
     NEXT_PUBLIC_ATTEST_CHAIN_TESTNET_RPC_URL:
       process.env.NEXT_PUBLIC_ATTEST_CHAIN_TESTNET_RPC_URL,
@@ -28,8 +28,6 @@ export const env = createEnv({
     NEXT_PUBLIC_ATTEST_CHAIN_WSS: process.env.NEXT_PUBLIC_ATTEST_CHAIN_WSS,
     NEXT_PUBLIC_WORLDCOIN_CLIENT_ID:
       process.env.NEXT_PUBLIC_WORLDCOIN_CLIENT_ID,
-    NODE_ENV: process.env.NODE_ENV,
-    IRON_SESSION_PASSWORD: process.env.IRON_SESSION_PASSWORD,
   },
   skipValidation: Boolean(process.env.SKIP_ENV_VALIDATION),
   emptyStringAsUndefined: true,
