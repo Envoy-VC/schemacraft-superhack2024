@@ -5,9 +5,14 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier . --write --cache"
+    "format": "prettier . --write --cache",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish",
+    "typedoc": "typedoc"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.7",
     "config": "workspace:*",
     "prettier": "^3.2.5",
     "turbo": "latest",

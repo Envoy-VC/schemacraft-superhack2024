@@ -2,7 +2,6 @@
 
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 import type { ISuccessResult } from '@worldcoin/idkit';
 import { type SessionOptions, getIronSession } from 'iron-session';
