@@ -1,7 +1,7 @@
 import { flushSync } from 'react-dom';
 import {
-  FieldArrayWithId,
-  UseFieldArrayReturn,
+  type FieldArrayWithId,
+  type UseFieldArrayReturn,
   useFieldArray,
   useForm,
   useFormContext,
@@ -14,6 +14,7 @@ import {
 
 import { SchemaRegistry } from '@ethereum-attestation-service/eas-sdk';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { JsonRpcSigner } from 'ethers';
 import { z } from 'zod';
 import { FieldType } from '~/types';
 
@@ -39,11 +40,17 @@ import {
 } from '~/components/ui/select';
 import { Switch } from '~/components/ui/switch';
 
-import { SchemaBuilderProps } from '.';
 import { Button } from '../ui/button';
 import { Checkbox } from '../ui/checkbox';
 
 import { GripVertical, Trash2Icon } from 'lucide-react';
+
+export interface SchemaBuilderProps {
+  signer?: JsonRpcSigner;
+  registryAddress?: string;
+  resolverAddress?: string;
+  onCreateCallback?: (hash: string) => void | Promise<void>;
+}
 
 const DragHandle = SortableHandle(() => (
   <GripVertical className='cursor-pointer text-neutral-600' size={20} />
@@ -118,13 +125,16 @@ export const SchemaBuilderForm = (props: FormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-2'>
+      <form className='space-y-2' onSubmit={form.handleSubmit(onSubmit)}>
         <SortableList
-          onSortEnd={onSortEnd}
-          items={arrayActions.fields}
           arrayActions={arrayActions}
+          items={arrayActions.fields}
+          onSortEnd={onSortEnd}
         />
         <Button
+          className='w-full text-start'
+          type='button'
+          variant='secondary'
           onClick={() => {
             arrayActions.append({
               name: '',
@@ -132,9 +142,6 @@ export const SchemaBuilderForm = (props: FormProps) => {
               type: FieldType.address,
             });
           }}
-          type='button'
-          className='w-full text-start'
-          variant='secondary'
         >
           Add Field
         </Button>
@@ -179,8 +186,8 @@ export const SchemaBuilderForm = (props: FormProps) => {
         />
         <Button
           className='w-full py-3'
-          type='submit'
           disabled={form.formState.isSubmitting}
+          type='submit'
         >
           {form.formState.isSubmitting ? 'Creating Schema...' : 'Create Schema'}
         </Button>
@@ -191,12 +198,13 @@ export const SchemaBuilderForm = (props: FormProps) => {
 
 interface SortableItemProps {
   i: number;
-  arrayActions: UseFieldArrayReturn<SchemaForm, 'fields', 'id'>;
+  arrayActions: UseFieldArrayReturn<SchemaForm, 'fields'>;
 }
 
 const SortableItem = SortableElement<SortableItemProps>(
   (props: SortableItemProps) => {
     const { control, watch } = useFormContext<SchemaForm>();
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- zod register
     const isArray = watch(`fields.${props.i}.isArray`);
 
     return (
@@ -204,13 +212,14 @@ const SortableItem = SortableElement<SortableItemProps>(
         <DragHandle />
         <FormField
           control={control}
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- zod register
           name={`fields.${props.i}.name`}
           render={({ field }) => (
             <FormItem className='w-full'>
               <FormControl>
                 <Input
-                  placeholder='Field Name'
                   className='border-none outline-none'
+                  placeholder='Field Name'
                   {...field}
                 />
               </FormControl>
@@ -220,20 +229,23 @@ const SortableItem = SortableElement<SortableItemProps>(
         />
         <FormField
           control={control}
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- zod register
           name={`fields.${props.i}.type`}
           render={({ field }) => (
             <FormItem className='w-[16rem]'>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select defaultValue={field.value} onValueChange={field.onChange}>
                 <FormControl>
-                  <SelectTrigger>{field.value || 'Select Type'}</SelectTrigger>
+                  <SelectTrigger>
+                    {(field.value as FieldType | undefined) ?? 'Select Type'}
+                  </SelectTrigger>
                 </FormControl>
                 <SelectContent>
                   {Object.values(FieldType).map((type) => {
                     return (
                       <SelectItem
                         key={type}
-                        value={type}
                         className='!m-0 flex w-full flex-col items-start justify-start px-2 py-1'
+                        value={type}
                       >
                         <div className='text-base font-medium text-primary'>
                           {type}
@@ -252,15 +264,16 @@ const SortableItem = SortableElement<SortableItemProps>(
         <Popover>
           <PopoverTrigger className='relative mx-1 text-xl text-neutral-600'>
             ⚙{' '}
-            {isArray && (
+            {isArray ? (
               <div className='absolute right-[8px] top-1/2 mt-[1px] flex h-[13px] w-[13px] -translate-y-1/2 items-center justify-center rounded-full bg-white p-1 text-[8px] font-bold'>
                 1
               </div>
-            )}
+            ) : null}
           </PopoverTrigger>
           <PopoverContent className='mb-0 flex flex-col gap-2 py-2'>
             <FormField
               control={control}
+              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- zod register
               name={`fields.${props.i}.isArray`}
               render={({ field }) => (
                 <FormItem className='flex flex-row items-start space-x-3 space-y-0'>
@@ -277,12 +290,12 @@ const SortableItem = SortableElement<SortableItemProps>(
               )}
             />
             <Button
-              onClick={() => props.arrayActions.remove(props.i)}
+              className='m-0 flex h-8 w-full justify-start p-0'
               type='button'
               variant='ghost'
-              className='m-0 flex h-8 w-full justify-start p-0'
+              onClick={() => props.arrayActions.remove(props.i)}
             >
-              <Trash2Icon size={16} className='mr-2' /> Delete
+              <Trash2Icon className='mr-2' size={16} /> Delete
             </Button>
           </PopoverContent>
         </Popover>
@@ -292,8 +305,8 @@ const SortableItem = SortableElement<SortableItemProps>(
 );
 
 interface SortableListProps {
-  items: FieldArrayWithId<SchemaForm, 'fields', 'id'>[];
-  arrayActions: UseFieldArrayReturn<SchemaForm, 'fields', 'id'>;
+  items: FieldArrayWithId<SchemaForm, 'fields'>[];
+  arrayActions: UseFieldArrayReturn<SchemaForm, 'fields'>;
 }
 
 const SortableList = SortableContainer<SortableListProps>(
@@ -303,9 +316,9 @@ const SortableList = SortableContainer<SortableListProps>(
         {items.map((item, index) => (
           <SortableItem
             key={item.id}
+            arrayActions={arrayActions}
             i={index}
             index={index}
-            arrayActions={arrayActions}
           />
         ))}
       </div>
@@ -338,12 +351,12 @@ const getFieldTypeDescription = (type: FieldType) => {
     return 'A Bytes32 can be any 32 bytes long data';
   if (type.startsWith('uint')) {
     const length = parseInt(type.replace('uint', ''));
-    return `A uint${length} can be any number between 0 and 2^${length} - 1`;
+    return `A uint${String(length)} can be any number between 0 and 2^${String(length)} - 1`;
   }
 
   if (type.startsWith('int')) {
     const length = parseInt(type.substring(3));
-    return `An int${length} can be any number between -2^${length - 1} and 2^${length - 1} - 1`;
+    return `An int${String(length)} can be any number between -2^${String(length - 1)} and 2^${String(length - 1)} - 1`;
   }
 };
 

@@ -45,7 +45,7 @@
     "@vercel/style-guide": "^6.0.0",
     "autoprefixer": "^10.4.20",
     "config": "workspace:*",
-    "eslint": "^9.8.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-tsdoc": "^0.3.0",
     "ethers": "^6.13.2",
     "postcss": "^8.4.41",

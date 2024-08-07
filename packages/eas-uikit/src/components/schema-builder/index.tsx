@@ -1,13 +1,4 @@
-import { JsonRpcSigner } from 'ethers';
-
-import { SchemaBuilderForm } from './form';
-
-export interface SchemaBuilderProps {
-  signer?: JsonRpcSigner;
-  registryAddress?: string;
-  resolverAddress?: string;
-  onCreateCallback?: (hash: string) => void | Promise<void>;
-}
+import { SchemaBuilderForm, type SchemaBuilderProps } from './form';
 
 export const SchemaBuilder = (props: SchemaBuilderProps) => {
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention -- for eas */
 export enum FieldType {
   address = 'address',
   string = 'string',
