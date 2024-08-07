@@ -27,10 +27,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body className={`font-sans ${GeistSans.variable}`}>
         <TRPCReactProvider>
           <EASProvider>
-            <Web3Provider initialState={initialState}>{children}</Web3Provider>
+            <Web3Provider initialState={initialState}>
+              {children}
+              <Toaster />
+            </Web3Provider>
           </EASProvider>
         </TRPCReactProvider>
-        <Toaster />
       </body>
     </html>
   );

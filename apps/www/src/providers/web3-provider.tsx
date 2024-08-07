@@ -13,6 +13,9 @@ createWeb3Modal({
   enableAnalytics: true,
   enableOnramp: true,
   themeMode: 'light',
+  chainImages: {
+    13370: '/attest-chain-logo.png',
+  },
 });
 
 interface Web3ProviderProps extends PropsWithChildren {
