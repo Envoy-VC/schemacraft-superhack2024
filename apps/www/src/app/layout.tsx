@@ -5,7 +5,7 @@ import { wagmiConfig } from '~/lib/viem';
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata } from 'next';
 import { cookieToInitialState } from 'wagmi';
-import { Web3Provider } from '~/providers';
+import { EASProvider, Web3Provider } from '~/providers';
 import '~/styles/globals.css';
 import { TRPCReactProvider } from '~/trpc/react';
 
@@ -26,7 +26,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <html lang='en'>
       <body className={`font-sans ${GeistSans.variable}`}>
         <TRPCReactProvider>
-          <Web3Provider initialState={initialState}>{children}</Web3Provider>
+          <EASProvider>
+            <Web3Provider initialState={initialState}>{children}</Web3Provider>
+          </EASProvider>
         </TRPCReactProvider>
         <Toaster />
       </body>

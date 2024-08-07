@@ -1,3 +1,2 @@
-import { Web3Provider } from './web3-provider';
-
-export { Web3Provider };
+export * from './web3-provider';
+export * from './eas-uikit';
