@@ -15,3 +15,11 @@ export const schemaBuilderSchema = z.object({
 
 export type SchemaField = z.infer<typeof schemaField>;
 export type SchemaForm = z.infer<typeof schemaBuilderSchema>;
+
+export type FieldValue = string | number | boolean;
+
+export interface AttestationBuilderForm {
+  recipient: string;
+  expirationTime: number;
+  fields: Record<string, FieldValue | FieldValue[]>;
+}

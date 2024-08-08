@@ -31,6 +31,7 @@ export const SchemaViewer = (props: SchemaViewerProps) => {
         uid: props.schemaUID,
       });
 
+      console.log(schemaRecord);
       return schemaRecord;
     },
     enabled: Boolean(props.signer && props.registryAddress),

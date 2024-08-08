@@ -49,3 +49,12 @@ export const decodeSchema = (schema: string) => {
 
   return res;
 };
+
+export const capitalizeString = (value: string) => {
+  return value
+    .replace('_', ' ')
+    .replace('-', ' ')
+    .split(' ')
+    .map((v) => v.charAt(0).toUpperCase() + v.slice(1))
+    .join(' ');
+};
