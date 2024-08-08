@@ -77,7 +77,7 @@ export const TextCopy = ({
 
   return (
     <div className='flex flex-row items-center gap-2'>
-      <div className='font-semibold'>
+      <div className='font-medium'>
         {type === 'text'
           ? enableTruncate
             ? truncate(text, length, fromMiddle)
@@ -99,7 +99,11 @@ export const TextCopy = ({
       )}
       {canCopy ? (
         <Button className='h-8 w-8 p-0' variant='ghost' onClick={copyText}>
-          {copied ? <CircleCheck size={18} /> : <CopyIcon size={16} />}
+          {copied ? (
+            <CircleCheck size={18} strokeWidth={2.5} />
+          ) : (
+            <CopyIcon size={16} strokeWidth={2.5} />
+          )}
         </Button>
       ) : null}
     </div>
