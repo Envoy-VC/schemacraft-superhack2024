@@ -1,6 +1,6 @@
 import { FieldType } from '~/types';
 
-import type { SchemaField } from './zod';
+import type { AttestationBuilderForm, SchemaField } from './zod';
 
 export const createSchema = (fields: SchemaField[]) => {
   const elements: string[] = [];
@@ -57,4 +57,31 @@ export const capitalizeString = (value: string) => {
     .split(' ')
     .map((v) => v.charAt(0).toUpperCase() + v.slice(1))
     .join(' ');
+};
+
+export const getMinMax = (type: FieldType) => {
+  if (String(type).startsWith('uint')) {
+    const length = parseInt(type.replace('uint', ''));
+    return { min: 0, max: Math.pow(2, length) - 1 };
+  } else if (String(type).startsWith('int')) {
+    const length = parseInt(type.substring(3));
+    return { min: -Math.pow(2, length - 1), max: Math.pow(2, length - 1) - 1 };
+  }
+  return { min: 0, max: 0 };
+};
+
+export const verifyAttestationForm = (
+  form: AttestationBuilderForm,
+  fields: ReturnType<typeof decodeSchema>
+) => {
+  const newForm = structuredClone(form);
+  fields.forEach((field) => {
+    if (newForm.fields[field.name] === undefined && !field.isArray) {
+      throw new Error(`Missing required field: ${field.name}`);
+    } else if (newForm.fields[field.name] === undefined && field.isArray) {
+      newForm.fields[field.name] = [];
+    }
+  });
+
+  return newForm;
 };

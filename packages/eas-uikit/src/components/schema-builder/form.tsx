@@ -24,7 +24,6 @@ import { FieldList } from './field-list';
 export interface SchemaBuilderProps {
   signer?: JsonRpcSigner;
   registryAddress?: string;
-  resolverAddress?: string;
   onSuccess?: (
     uid: string,
     receipt?: TransactionReceipt
@@ -64,20 +63,15 @@ export const SchemaBuilderForm = (props: FormProps) => {
       throw new Error('Signer is required');
     }
 
-    if (!props.resolverAddress) {
-      throw new Error('Resolver address is required');
-    }
     const schemaRegistryContractAddress = props.registryAddress;
     const schemaRegistry = new SchemaRegistry(schemaRegistryContractAddress);
 
     schemaRegistry.connect(props.signer);
 
     const schema = createSchema(data.fields);
-    const resolverAddress = props.resolverAddress;
 
     const transaction = await schemaRegistry.register({
       schema,
-      resolverAddress,
       revocable: data.isRevocable,
     });
 

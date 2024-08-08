@@ -15,4 +15,9 @@ export const easConfig: Record<number, EASConfig> = {
     indexer: '0x4200000000000000000000000000000000000020',
     schemaRegistry: '0x37AC6006646f2e687B7fB379F549Dc7634dF5b84',
   },
+  11155111: {
+    eas: '0xC2679fBD37d54388Ce493F1DB75320D236e1815e',
+    indexer: '0xaEF4103A04090071165F78D45D83A0C0782c2B2a',
+    schemaRegistry: '0x0a7E2Ff54e76B8E6659aedc9103FB21c038050D0',
+  },
 };

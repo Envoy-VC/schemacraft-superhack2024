@@ -4,6 +4,7 @@ export enum FieldType {
   string = 'string',
   bool = 'bool',
   bytes32 = 'bytes32',
+  bytes = 'bytes',
   uint8 = 'uint8',
   uint16 = 'uint16',
   uint24 = 'uint24',

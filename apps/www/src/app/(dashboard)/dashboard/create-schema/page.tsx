@@ -26,7 +26,6 @@ const CreateSchema = () => {
     <div className='mx-auto flex h-fit w-fit flex-col items-center justify-center gap-4'>
       <SchemaBuilder
         registryAddress={easConfig[chainId]?.schemaRegistry}
-        resolverAddress={easConfig[chainId]?.eas}
         signer={signer}
         onSuccess={(uid, receipt) => {
           setSchemaUID(uid);
