@@ -105,7 +105,7 @@ export const SchemaBuilderForm = (props: FormProps) => {
   return (
     <Form {...form}>
       <form className='space-y-2' onSubmit={form.handleSubmit(onSubmit)}>
-        <FieldList onSortEnd={onSortEnd} />
+        <FieldList arrayActions={arrayActions} onSortEnd={onSortEnd} />
         <div className='flex flex-col py-2'>
           <div className='text-lg font-medium'>Resolver Address</div>
           <div className='text-xs text-neutral-600'>
