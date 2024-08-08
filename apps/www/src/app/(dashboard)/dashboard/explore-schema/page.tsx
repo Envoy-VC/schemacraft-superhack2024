@@ -20,10 +20,10 @@ const ViewSchema = () => {
 
   return (
     <div className='mx-auto flex w-full max-w-xl flex-col items-center justify-center gap-8'>
-      <div className='flex flex-row items-center gap-2 w-full'>
+      <div className='flex w-full flex-row items-center gap-2'>
         <Input
-          placeholder='Search for a schema'
           className='w-full'
+          placeholder='Search for a schema'
           value={uid}
           onChange={(e) => setUID(e.target.value)}
         />
