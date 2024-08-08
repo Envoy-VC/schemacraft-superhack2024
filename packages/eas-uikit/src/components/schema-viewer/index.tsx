@@ -43,7 +43,7 @@ export const SchemaViewer = (props: SchemaViewerProps) => {
   }, [data]);
 
   return (
-    <div className='flex max-w-xl flex-col gap-2 rounded-2xl p-5 shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]'>
+    <div className='flex w-full max-w-xl flex-col gap-2 rounded-2xl p-5 shadow-[rgba(100,100,111,0.2)_0px_7px_29px_0px]'>
       <div className='text-2xl font-medium'>Schema</div>
       <div className='border-b border-neutral-200 pb-2 text-sm text-neutral-400'>
         Details about the schema such as the fields and the resolver address.
