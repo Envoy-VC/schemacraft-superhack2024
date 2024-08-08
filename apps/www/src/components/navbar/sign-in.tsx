@@ -14,7 +14,7 @@ export const SignInButton = async () => {
     <Button asChild className='h-9 rounded-2xl font-medium'>
       <Link
         className='flex flex-row items-center gap-2 font-medium'
-        href={isLoggedIn ? '/dashboard' : '/auth'}
+        href={isLoggedIn ? '/dashboard/explore-schema' : '/auth'}
       >
         {!isLoggedIn ? (
           <>
