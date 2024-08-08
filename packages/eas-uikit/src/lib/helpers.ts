@@ -31,3 +31,21 @@ export const getFieldTypeDescription = (type: FieldType) => {
     return `An int${String(length)} can be any number between -2^${String(length - 1)} and 2^${String(length - 1)} - 1`;
   }
 };
+
+export const decodeSchema = (schema: string) => {
+  const fields = schema.split(', ').map((v) => v.trim());
+  const res: { name: string; type: FieldType; isArray: boolean }[] = [];
+
+  fields.forEach((field) => {
+    const [dataType, name] = field.split(' ') as [string, string];
+    const isArray = dataType.endsWith('[]');
+    const type = isArray ? dataType.replace('[]', '') : dataType;
+    res.push({
+      name,
+      type: type as FieldType,
+      isArray,
+    });
+  });
+
+  return res;
+};

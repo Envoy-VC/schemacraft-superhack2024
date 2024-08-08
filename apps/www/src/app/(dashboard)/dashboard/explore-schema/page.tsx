@@ -16,6 +16,7 @@ const ViewSchema = () => {
     <div className='flex w-full items-center justify-center'>
       <SchemaViewer
         registryAddress={easConfig[chainId]?.schemaRegistry}
+        schemaUID='0xdf9216b915bd0077156c42395f13187e8b4386e5b07795b3d8fefe20ab0666ee'
         signer={signer}
       />
     </div>
