@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { type decodeSchema, verifyAttestationForm } from '~/lib/helpers';
 
@@ -58,6 +58,7 @@ export const MakeAttestationForm = (props: MakeAttestationFormProps) => {
       const tx = await eas.attest({
         schema: props.schemaUID,
         data: {
+          // @ts-expect-error - can be undefined
           recipient: newForm.recipient,
           expirationTime: BigInt(newForm.expirationTime),
           revocable: props.revocable,

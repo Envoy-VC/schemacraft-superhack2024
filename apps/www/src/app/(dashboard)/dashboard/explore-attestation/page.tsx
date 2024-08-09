@@ -39,6 +39,7 @@ const ViewSchema = () => {
         <AttestationViewer
           attestationUID={searchUID}
           easContractAddress={easConfig[chainId]?.eas}
+          registryAddress={easConfig[chainId]?.schemaRegistry}
           signer={signer}
         />
       ) : null}

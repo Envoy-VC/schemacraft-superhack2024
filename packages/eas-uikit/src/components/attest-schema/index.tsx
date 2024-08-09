@@ -28,7 +28,6 @@ export const AttestSchema = (props: AttestBuilderProps) => {
       if (!props.registryAddress) return;
 
       const schemaRegistry = new SchemaRegistry(props.registryAddress);
-
       schemaRegistry.connect(props.signer);
 
       const schemaRecord = await schemaRegistry.getSchema({

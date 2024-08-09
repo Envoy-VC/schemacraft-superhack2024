@@ -32,13 +32,13 @@ export type AttestationContextType = AttestationContextState &
 
 export const AttestationFormProvider = ({ children }: PropsWithChildren) => {
   const [form, setForm] = useState<AttestationBuilderForm>({
-    recipient: '',
+    recipient: undefined,
     expirationTime: 0,
     fields: {},
   });
 
   const updateRecipient = (value: string) => {
-    const newForm = { ...form, recipient: value };
+    const newForm = { ...form, recipient: value === '' ? undefined : value };
     setForm(newForm);
   };
 

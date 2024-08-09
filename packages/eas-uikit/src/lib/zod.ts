@@ -19,7 +19,7 @@ export type SchemaForm = z.infer<typeof schemaBuilderSchema>;
 export type FieldValue = string | number | boolean;
 
 export interface AttestationBuilderForm {
-  recipient: string;
+  recipient?: string;
   expirationTime: number;
   fields: Record<string, FieldValue | FieldValue[]>;
 }

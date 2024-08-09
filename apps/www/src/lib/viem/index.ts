@@ -5,7 +5,7 @@ import {
   createStorage,
   http,
 } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
+import { mainnet, sepolia } from 'wagmi/chains';
 import { walletConnect } from 'wagmi/connectors';
 import { env } from '~/env';
 
@@ -21,7 +21,7 @@ const metadata = {
 };
 
 export const wagmiConfig: Config = createConfig({
-  chains: [mainnet, attestChain, attestChainTestnet],
+  chains: [mainnet, attestChain, attestChainTestnet, sepolia],
   ssr: true,
   storage: createStorage({
     storage: cookieStorage,
@@ -31,5 +31,6 @@ export const wagmiConfig: Config = createConfig({
     [mainnet.id]: http(),
     [attestChain.id]: http(env.NEXT_PUBLIC_ATTEST_CHAIN_RPC_URL),
     [attestChainTestnet.id]: http(env.NEXT_PUBLIC_ATTEST_CHAIN_TESTNET_RPC_URL),
+    [sepolia.id]: http(),
   },
 });

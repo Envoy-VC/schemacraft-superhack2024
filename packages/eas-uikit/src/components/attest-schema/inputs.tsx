@@ -41,9 +41,7 @@ export const StringInput = (props: BaseInputProps) => {
         value={(form.fields[props.name] as string | undefined) ?? ''}
         onChange={(e) => {
           if (props.type === FieldType.address) {
-            if (e.target.value.length <= 20) {
-              updateField(props.name, e.target.value);
-            }
+            updateField(props.name, e.target.value);
           } else if (props.type === FieldType.bytes32) {
             if (e.target.value.length <= 64) {
               updateField(props.name, e.target.value);

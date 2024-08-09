@@ -30,11 +30,11 @@ const CreateSchema = () => {
   const [txLink, setTxLink] = useState<string | null>(null);
 
   return (
-    <div className='mx-auto flex h-fit w-full flex-col items-center justify-center gap-4'>
+    <div className='mx-auto flex h-fit w-full flex-col items-center justify-center gap-4 max-w-xl'>
       <div className='flex w-full flex-row items-center gap-2'>
         <Input
           className='w-full'
-          placeholder='Search for a attestation'
+          placeholder='Search for a Schema'
           value={uid}
           onChange={(e) => setUID(e.target.value)}
         />
