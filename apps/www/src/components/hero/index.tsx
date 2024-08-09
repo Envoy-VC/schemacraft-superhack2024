@@ -9,7 +9,7 @@ import { Cover } from './cover';
 
 export const Hero = () => {
   return (
-    <div className='dark flex h-screen flex-col items-center gap-12 py-24'>
+    <div className='dark flex flex-col items-center gap-12 py-24'>
       <h1 className='relative z-20 mx-auto mt-6 max-w-7xl bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 bg-clip-text py-6 text-center text-4xl font-semibold leading-[2] text-transparent dark:from-neutral-800 dark:via-white dark:to-white md:text-4xl lg:text-6xl'>
         Attestation development <br /> at <Cover>warp speed</Cover>
       </h1>

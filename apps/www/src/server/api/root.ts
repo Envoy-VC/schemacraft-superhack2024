@@ -1,5 +1,6 @@
 import { createCallerFactory, createTRPCRouter } from '~/server/api/trpc';
 
+import { statsRouter } from './routers/stats';
 import { worldIdRouter } from './routers/world-id';
 
 /**
@@ -9,6 +10,7 @@ import { worldIdRouter } from './routers/world-id';
  */
 export const appRouter = createTRPCRouter({
   worldId: worldIdRouter,
+  stats: statsRouter,
 });
 
 // export type definition of API
