@@ -7,9 +7,10 @@ import React, { useState } from 'react';
 
 import { easConfig } from '~/lib/eas';
 import { useEthers } from '~/lib/hooks';
-import { truncate } from '~/lib/utils';
+import { errorHandler, truncate } from '~/lib/utils';
 
 import { AttestSchema } from 'eas-uikit';
+import { toast } from 'sonner';
 import { useChainId, useChains } from 'wagmi';
 import { TextCopy } from '~/components';
 
@@ -30,7 +31,7 @@ const CreateSchema = () => {
   const [txLink, setTxLink] = useState<string | null>(null);
 
   return (
-    <div className='mx-auto flex h-fit w-full flex-col items-center justify-center gap-4 max-w-xl'>
+    <div className='mx-auto flex h-fit w-full max-w-xl flex-col items-center justify-center gap-4'>
       <div className='flex w-full flex-row items-center gap-2'>
         <Input
           className='w-full'
@@ -48,10 +49,13 @@ const CreateSchema = () => {
       </div>
       {searchUID ? (
         <AttestSchema
-          easContractAddress={easConfig[chainId]?.eas}
-          registryAddress={easConfig[chainId]?.schemaRegistry}
+          easContractAddress={easConfig[chainId]?.eas ?? ''}
+          registryAddress={easConfig[chainId]?.schemaRegistry ?? ''}
           schemaUID={searchUID}
           signer={signer}
+          onError={(error) => {
+            toast.error(errorHandler(error));
+          }}
           onSuccess={(attestationUid, receipt) => {
             setAttestationUID(attestationUid);
             const baseURL =

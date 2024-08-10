@@ -37,7 +37,7 @@ const ViewSchema = () => {
       </div>
       {searchUID ? (
         <SchemaViewer
-          registryAddress={easConfig[chainId]?.schemaRegistry}
+          registryAddress={easConfig[chainId]?.schemaRegistry ?? ''}
           schemaUID={searchUID}
           signer={signer}
         />

@@ -6,9 +6,10 @@ import React, { useState } from 'react';
 
 import { easConfig } from '~/lib/eas';
 import { useEthers } from '~/lib/hooks';
-import { truncate } from '~/lib/utils';
+import { errorHandler, truncate } from '~/lib/utils';
 
 import { SchemaBuilder } from 'eas-uikit';
+import { toast } from 'sonner';
 import { useChainId, useChains } from 'wagmi';
 import { TextCopy } from '~/components';
 
@@ -25,8 +26,11 @@ const CreateSchema = () => {
   return (
     <div className='mx-auto flex h-fit w-fit flex-col items-center justify-center gap-4'>
       <SchemaBuilder
-        registryAddress={easConfig[chainId]?.schemaRegistry}
+        registryAddress={easConfig[chainId]?.schemaRegistry ?? ''}
         signer={signer}
+        onError={(error) => {
+          toast.error(errorHandler(error));
+        }}
         onSuccess={(uid, receipt) => {
           setSchemaUID(uid);
           const baseURL =
