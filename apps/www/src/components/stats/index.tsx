@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { api } from '~/trpc/server';
-
+// import { api } from '~/trpc/server';
 import { GasFeeChart } from './charts/gas-fee';
-import { SchemaTimelineChart } from './charts/total-schemas';
 
-export const Statistics = async () => {
-  const stats = await api.stats.getStats();
+// import { SchemaTimelineChart } from './charts/total-schemas';
+
+export const Statistics = () => {
+  // const stats = await api.stats.getStats();
   return (
     <div className='dark mx-auto flex h-screen w-full max-w-screen-xl flex-col gap-6'>
       <div className='py-12 text-center text-5xl font-semibold text-neutral-300'>
@@ -43,7 +43,7 @@ export const Statistics = async () => {
           }}
         />
       </div>
-      <SchemaTimelineChart chartData={stats} />
+      {/* <SchemaTimelineChart chartData={stats} /> */}
     </div>
   );
 };
