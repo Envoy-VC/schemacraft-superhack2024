@@ -13,13 +13,13 @@ export const SignInButton = async () => {
   return (
     <Button asChild className='h-9 rounded-2xl font-medium'>
       <Link
-        className='flex flex-row items-center gap-2 font-medium'
+        className='flex flex-row items-center gap-2 !font-semibold'
         href={isLoggedIn ? '/dashboard/explore-schema' : '/auth'}
       >
         {!isLoggedIn ? (
           <>
             Sign In
-            <WorldCoinLogo height={28} stroke='#fff' width={28} />
+            <WorldCoinLogo height={28} stroke='#000' width={28} />
           </>
         ) : (
           <>Dashboard</>

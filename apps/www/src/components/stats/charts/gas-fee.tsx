@@ -27,7 +27,7 @@ interface GasFeeChartProps {
   subtitle: string;
   color: string;
   units?: string;
-  value: number;
+  value: number | string;
   stats: {
     title: string;
     subtitle: string;
@@ -91,6 +91,7 @@ export const GasFeeChart = (props: GasFeeChartProps) => {
                           y={viewBox.cy}
                         >
                           {chartData[0]?.fee.toLocaleString()}
+                          {!props.units && 'k'}
                         </tspan>
                         <tspan
                           className='fill-muted-foreground'

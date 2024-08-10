@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { Hero, Navbar } from '~/components';
-
-import { Statistics } from '~/components/stats';
+import { Architecture, Hero, Navbar, Statistics } from '~/components';
 
 const Home = () => {
   return (
     <div className='min-h-screen bg-black'>
       <Navbar />
       <Hero />
+      <Architecture />
       <Statistics />
     </div>
   );
