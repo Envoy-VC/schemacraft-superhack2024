@@ -12,7 +12,7 @@ import { TextCopy } from '../text-copy';
 
 interface SchemaViewerProps {
   schemaUID: string;
-  registryAddress?: string;
+  registryAddress: string;
   signer?: Signer;
 }
 
@@ -21,7 +21,6 @@ export const SchemaViewer = (props: SchemaViewerProps) => {
     queryKey: ['schema', props.schemaUID],
     queryFn: async () => {
       if (!props.signer) return;
-      if (!props.registryAddress) return;
       const schemaRegistry = new SchemaRegistry(props.registryAddress);
 
       schemaRegistry.connect(props.signer);

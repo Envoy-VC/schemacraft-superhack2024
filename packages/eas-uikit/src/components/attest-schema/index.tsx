@@ -9,8 +9,8 @@ import { MakeAttestationForm } from './form';
 
 export interface AttestBuilderProps {
   schemaUID: string;
-  easContractAddress?: string;
-  registryAddress?: string;
+  easContractAddress: string;
+  registryAddress: string;
   signer?: Signer;
   onSuccess?: (
     uid: string,
@@ -24,8 +24,6 @@ export const AttestSchema = (props: AttestBuilderProps) => {
     queryKey: ['schema', props.schemaUID],
     queryFn: async () => {
       if (!props.signer) return;
-      if (!props.easContractAddress) return;
-      if (!props.registryAddress) return;
 
       const schemaRegistry = new SchemaRegistry(props.registryAddress);
       schemaRegistry.connect(props.signer);

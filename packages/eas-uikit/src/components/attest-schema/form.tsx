@@ -17,7 +17,7 @@ import { FormInput } from './inputs';
 interface MakeAttestationFormProps extends SchemaRecord {
   fields: ReturnType<typeof decodeSchema>;
   schemaUID: string;
-  easContractAddress?: string;
+  easContractAddress: string;
   signer?: Signer;
   onSuccess?: (
     uid: string,

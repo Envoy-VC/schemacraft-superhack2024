@@ -23,11 +23,12 @@ import { FieldList } from './field-list';
 
 export interface SchemaBuilderProps {
   signer?: JsonRpcSigner;
-  registryAddress?: string;
+  registryAddress: string;
   onSuccess?: (
     uid: string,
     receipt?: TransactionReceipt
   ) => void | Promise<void>;
+  onError?: (error: unknown) => void | Promise<void>;
 }
 
 type FormProps = SchemaBuilderProps;
@@ -50,40 +51,48 @@ export const SchemaBuilderForm = (props: FormProps) => {
   });
 
   const onSubmit = async (data: SchemaForm) => {
-    const names = data.fields.map((f) => f.name);
-    if (!(new Set(names).size === names.length)) {
-      throw new Error('Field names must be unique');
+    try {
+      const names = data.fields.map((f) => f.name);
+      if (!(new Set(names).size === names.length)) {
+        throw new Error('Field names must be unique');
+      }
+
+      if (!props.registryAddress) {
+        throw new Error('Registry address is required');
+      }
+
+      if (!props.signer) {
+        throw new Error('Signer is required');
+      }
+
+      const schemaRegistryContractAddress = props.registryAddress;
+      const schemaRegistry = new SchemaRegistry(schemaRegistryContractAddress);
+
+      schemaRegistry.connect(props.signer);
+
+      const schema = createSchema(data.fields);
+
+      const transaction = await schemaRegistry.register({
+        schema,
+        revocable: data.isRevocable,
+      });
+
+      const hash = await transaction.wait();
+      if (props.onSuccess) {
+        await props.onSuccess(hash, transaction.receipt);
+      }
+      form.reset({
+        fields: [{ name: '' }],
+        resolverAddress: undefined,
+        isRevocable: false,
+      });
+    } catch (error) {
+      if (props.onError) {
+        await props.onError(error);
+        return;
+      }
+      console.error(error);
     }
-
-    if (!props.registryAddress) {
-      throw new Error('Registry address is required');
-    }
-
-    if (!props.signer) {
-      throw new Error('Signer is required');
-    }
-
-    const schemaRegistryContractAddress = props.registryAddress;
-    const schemaRegistry = new SchemaRegistry(schemaRegistryContractAddress);
-
-    schemaRegistry.connect(props.signer);
-
-    const schema = createSchema(data.fields);
-
-    const transaction = await schemaRegistry.register({
-      schema,
-      revocable: data.isRevocable,
-    });
-
-    const hash = await transaction.wait();
-    if (props.onSuccess) {
-      await props.onSuccess(hash, transaction.receipt);
-    }
-    form.reset({
-      fields: [{ name: '' }],
-      resolverAddress: undefined,
-      isRevocable: false,
-    });
   };
 
   const onSortEnd = ({

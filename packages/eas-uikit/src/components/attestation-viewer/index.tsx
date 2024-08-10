@@ -15,8 +15,8 @@ import { Skeleton } from '../ui/skeleton';
 
 interface AttestationViewerProps {
   attestationUID: string;
-  easContractAddress?: string;
-  registryAddress?: string;
+  easContractAddress: string;
+  registryAddress: string;
   signer?: Signer;
 }
 
@@ -25,8 +25,6 @@ export const AttestationViewer = (props: AttestationViewerProps) => {
     queryKey: ['attestation', props.attestationUID],
     queryFn: async () => {
       if (!props.signer) return;
-      if (!props.easContractAddress) return;
-      if (!props.registryAddress) return;
       const eas = new EAS(props.easContractAddress);
       const registry = new SchemaRegistry(props.registryAddress);
 
