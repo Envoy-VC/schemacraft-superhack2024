@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "next build",
+    "build": "bash ignore-step.sh && next build",
     "dev": "next dev",
     "format": "prettier . --write --cache",
     "lint": "next lint",
