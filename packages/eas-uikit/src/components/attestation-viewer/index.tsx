@@ -7,18 +7,11 @@ import {
   type SchemaValue,
 } from '@ethereum-attestation-service/eas-sdk';
 import { useQuery } from '@tanstack/react-query';
-import type { Signer } from 'ethers';
 
 import { capitalizeString } from '../../lib/helpers';
+import type { AttestationViewerProps } from '../../types/index';
 import { TextCopy } from '../text-copy';
 import { Skeleton } from '../ui/skeleton';
-
-interface AttestationViewerProps {
-  attestationUID: string;
-  easContractAddress: string;
-  registryAddress: string;
-  signer?: Signer;
-}
 
 export const AttestationViewer = (props: AttestationViewerProps) => {
   const { data } = useQuery({

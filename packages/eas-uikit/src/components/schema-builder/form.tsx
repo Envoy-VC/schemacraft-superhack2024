@@ -6,7 +6,7 @@ import { type SchemaForm, schemaBuilderSchema } from '~/lib/zod';
 
 import { SchemaRegistry } from '@ethereum-attestation-service/eas-sdk';
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { JsonRpcSigner, TransactionReceipt } from 'ethers';
+import type { SchemaBuilderProps } from '~/types';
 
 import {
   Form,
@@ -21,19 +21,7 @@ import { Switch } from '~/components/ui/switch';
 import { Button } from '../ui/button';
 import { FieldList } from './field-list';
 
-export interface SchemaBuilderProps {
-  signer?: JsonRpcSigner;
-  registryAddress: string;
-  onSuccess?: (
-    uid: string,
-    receipt?: TransactionReceipt
-  ) => void | Promise<void>;
-  onError?: (error: unknown) => void | Promise<void>;
-}
-
-type FormProps = SchemaBuilderProps;
-
-export const SchemaBuilderForm = (props: FormProps) => {
+export const SchemaBuilderForm = (props: SchemaBuilderProps) => {
   const form = useForm<SchemaForm>({
     resolver: zodResolver(schemaBuilderSchema),
     defaultValues: {

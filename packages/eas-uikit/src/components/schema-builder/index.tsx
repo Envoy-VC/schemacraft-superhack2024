@@ -1,4 +1,5 @@
-import { SchemaBuilderForm, type SchemaBuilderProps } from './form';
+import type { SchemaBuilderProps } from '~/types';
+import { SchemaBuilderForm } from './form';
 
 export const SchemaBuilder = (props: SchemaBuilderProps) => {
   return (

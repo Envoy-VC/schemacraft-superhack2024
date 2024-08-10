@@ -1,3 +1,6 @@
+import type { Signer, TransactionReceipt } from 'ethers';
+
+
 /* eslint-disable @typescript-eslint/naming-convention -- for eas */
 export enum FieldType {
   address = 'address',
@@ -69,4 +72,38 @@ export enum FieldType {
   int240 = 'int240',
   int248 = 'int248',
   int256 = 'int256',
+}
+
+export interface AttestBuilderProps {
+  schemaUID: string;
+  easContractAddress: string;
+  registryAddress: string;
+  signer?: Signer;
+  onSuccess?: (
+    uid: string,
+    receipt?: TransactionReceipt
+  ) => Promise<void> | void;
+  onError?: (error: unknown) => Promise<void> | void;
+}
+
+export interface AttestationViewerProps {
+  attestationUID: string;
+  easContractAddress: string;
+  registryAddress: string;
+  signer?: Signer;
+}
+export interface SchemaBuilderProps {
+  signer?: Signer;
+  registryAddress: string;
+  onSuccess?: (
+    uid: string,
+    receipt?: TransactionReceipt
+  ) => void | Promise<void>;
+  onError?: (error: unknown) => void | Promise<void>;
+}
+
+export interface SchemaViewerProps {
+  schemaUID: string;
+  registryAddress: string;
+  signer?: Signer;
 }

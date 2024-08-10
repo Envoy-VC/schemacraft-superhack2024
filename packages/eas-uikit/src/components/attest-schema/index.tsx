@@ -2,22 +2,10 @@ import { decodeSchema } from '~/lib/helpers';
 
 import { SchemaRegistry } from '@ethereum-attestation-service/eas-sdk';
 import { useQuery } from '@tanstack/react-query';
-import type { Signer, TransactionReceipt } from 'ethers';
 
+import type { AttestBuilderProps } from '../../types/index';
 import { AttestationFormProvider } from './context';
 import { MakeAttestationForm } from './form';
-
-export interface AttestBuilderProps {
-  schemaUID: string;
-  easContractAddress: string;
-  registryAddress: string;
-  signer?: Signer;
-  onSuccess?: (
-    uid: string,
-    receipt?: TransactionReceipt
-  ) => Promise<void> | void;
-  onError?: (error: unknown) => Promise<void> | void;
-}
 
 export const AttestSchema = (props: AttestBuilderProps) => {
   const { data } = useQuery({

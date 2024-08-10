@@ -4,17 +4,11 @@ import { decodeSchema } from '~/lib/helpers';
 
 import { SchemaRegistry } from '@ethereum-attestation-service/eas-sdk';
 import { useQuery } from '@tanstack/react-query';
-import type { Signer } from 'ethers';
+import type { SchemaViewerProps } from '~/types';
 
 import { Skeleton } from '~/components/ui/skeleton';
 
 import { TextCopy } from '../text-copy';
-
-interface SchemaViewerProps {
-  schemaUID: string;
-  registryAddress: string;
-  signer?: Signer;
-}
 
 export const SchemaViewer = (props: SchemaViewerProps) => {
   const { data } = useQuery({
