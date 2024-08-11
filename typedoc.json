@@ -4,7 +4,7 @@
   "entryPointStrategy": "packages",
   "name": "EAS UIKit Reference",
   "out": "docs",
-  "readme": "./README.md",
+  "readme": "./packages/eas-uikit/README.md",
   "customCss": "assets/docs.css",
   "plugin": ["typedoc-material-theme", "typedoc-plugin-extras"],
   "themeColor": "#c3c8e4",
@@ -12,6 +12,12 @@
     "includeCategories": true,
     "includeGroups": true,
     "includeFolders": false
+  },
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true,
+    "external": true
   },
   "categorizeByGroup": true,
   "hideGenerator": false
