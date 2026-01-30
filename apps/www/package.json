@@ -61,7 +61,7 @@
     "@vercel/style-guide": "^6.0.0",
     "@wagmi/cli": "^2.1.15",
     "config": "workspace:*",
-    "eslint": "^8.57.0",
+    "eslint": "^9.26.0",
     "postcss": "^8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
